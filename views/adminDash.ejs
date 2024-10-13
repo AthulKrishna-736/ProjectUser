@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <style>
+        body, h1 {
+            font-family: "Raleway", sans-serif;
+        }
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f1f1f1;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .search-bar {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        .search-bar input[type="text"] {
+            flex-grow: 1;
+            padding: 10px;
+            border-radius: 4px 0 0 4px;
+            border: 1px solid #ccc;
+        }
+        .search-bar input[type="submit"] {
+            padding: 10px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+            border-radius: 0 4px 4px 0;
+        }
+        .search-bar input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .action-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            display: inline-flex;
+        }
+        .edit-btn {
+            background-color: #ffa500;
+            color: white;
+        }
+        .edit-btn:hover {
+            background-color: #e69500;
+        }
+        .delete-btn {
+            background-color: #f44336;
+            color: white;
+        }
+        .delete-btn:hover {
+            background-color: #d32f2f;
+        }
+        .logout-btn, .create-btn {
+            background-color: #f44336;
+            color: white;
+            font-size: 16px;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            border: none;
+            position: absolute;
+            top: 20px;
+        }
+        .logout-btn {
+            right: 20px;
+        }
+        .create-btn {
+            right: 120px;
+        }
+        .logout-btn:hover, .create-btn:hover {
+            background-color: #d32f2f;
+        }
+        .button-container {
+            display: flex;
+            gap: 5px;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <a href="/admin/createUser">
+        <button type="button" class="create-btn">Create User</button>
+    </a>
+    <form action="/admin/logout" method="get" style="display: inline;">
+        <button type="submit" class="logout-btn">Logout</button>
+    </form>
+    <h1>Admin Dashboard</h1>
+
+    <!-- Search Bar -->
+    <form action="/admin/search" method="post">
+        <div class="search-bar">
+            <input type="text" name="search" placeholder="Search users...">
+            <input type="submit" value="Search">
+        </div>
+    </form>
+    
+    <!-- User Table -->
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>User Name</th>
+                <th>User Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (user_data.length > 0) { %>
+                <% for (let i = 0; i < user_data.length; i++) { %>
+                    <tr>
+                        <td><%= i + 1 %></td>
+                        <td><%= user_data[i].name %></td>
+                        <td><%= user_data[i].email %></td>
+                        <td>
+                            <div class="button-container">
+                                <form action="/admin/editUser/<%= user_data[i]._id %>" method="get">
+                                    <button type="submit" class="action-btn edit-btn">Edit</button>
+                                </form>
+                                <form action="/admin/deleteUser/<%= user_data[i]._id %>" method="get">
+                                    <button type="submit" class="action-btn delete-btn">Delete</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                <% } %>
+            <% } else { %>
+                <tr>
+                    <td colspan="4">No users registered yet.</td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

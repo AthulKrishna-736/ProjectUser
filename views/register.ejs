@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Login & Registration Form</title>
+  <!---Custom CSS File--->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <input type="checkbox" id="check" <% if (showLogin) { %> checked <% } %> >
+    <div class="login form">
+      <header>Login</header>
+      <form action="/login" method="post">
+        <input type="email" name="email" placeholder="Enter your email" required>
+        <input type="password" name="password" placeholder="Enter your password" required>
+        <% if (typeof loginError !== 'undefined' && loginError) { %>
+          <p style="color: red;"><%= loginError %></p>
+        <% } else if (typeof signupSuccess !== 'undefined' && signupSuccess) { %>
+          <p style="color: green;"><%= signupSuccess %></p>
+        <% } %>
+         <input type="submit" class="button" value="Login">
+      </form>
+      <div class="signup">
+        <span class="signup">Don't have an account?
+         <label for="check">Signup</label>
+        </span>
+      </div>
+    </div>
+
+    <div class="registration form">
+      <header>Signup</header>
+      <form action="/register" method="post">
+        <input type="text" name="userName" placeholder="Enter your name">
+        <input type="email" name="email" placeholder="Enter your email">
+        <input type="password" name="password" placeholder="Create a password">
+        <% if (typeof signupError !== 'undefined' && signupError) { %>
+          <p style="color: red;"><%= signupError %></p>
+        <% } %>
+        <input type="submit" class="button" value="Signup">
+      </form>
+      <div class="signup">
+        <span class="signup">Already have an account?
+         <label for="check">Login</label>
+        </span>
+      </div>
+    </div>
+  </div>
+    <!-- Hidden Admin Button -->
+    <a href="/admin/login" class="admin-button">Admin Login</a>
+</body>
+</html>

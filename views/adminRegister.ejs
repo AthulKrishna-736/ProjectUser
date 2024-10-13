@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Admin Signup</title>
+  <!---Custom CSS File--->
+  <link rel="stylesheet" href="/adminLog.css">
+</head>
+<body>
+  <div class="container">
+    <div class="registration form">
+      <header>Admin Signup</header>
+      <form action="/admin/register" method="post">
+        <input type="text" name="name" placeholder="Enter your name" required>
+        <input type="email" name="email" placeholder="Enter your email" required>
+        <input type="password" name="adminkey" placeholder="Enter your admin key" required>
+        <input type="password" name="password" placeholder="Create a password" required>
+        <% if (typeof signupError !== 'undefined' && signupError) { %>
+          <p style="color: red;"><%= signupError %></p>
+        <% } %>
+        <input type="submit" class="button" value="Signup">
+      </form>
+      <div class="signup">
+        <span class="signup">Already have an account?
+          <a href="/admin/login">Login</a>
+        </span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
